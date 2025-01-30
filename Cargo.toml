@@ -1,0 +1,10 @@
+[package]
+name = "familyProAssetViewer"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+clap = { version = "4.5.4", features = ["derive"] }
+num = "0.4.3"
+olc_pixel_game_engine = "0.6.0"
+rand = "0.8.5"
