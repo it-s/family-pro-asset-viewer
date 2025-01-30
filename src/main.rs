@@ -40,9 +40,33 @@ fn main() {
     env::set_var("RUST_BACKTRACE", "1");
     let args = Args::parse();
 
-    println!("Game file: {}", args.file);
-    println!("PAL file: {}", args.pal);
+    // Check file extension and stop application if not supported
+    match file::get_file_type(&args.file) {
+        file::FileType::Unknown => {
+            println!(
+                "Error: File {} has an unknown extension. Exiting.",
+                &args.file
+            );
+            std::process::exit(1);
+        }
+        file::FileType::HMG | file::FileType::FBK | file::FileType::FX4 => {
+            println!("Game file: {}", &args.file);
+            println!("PAL file: {}", &args.pal);
 
-    let mut viewer = Viewer::new(args.file, args.pal, args.zoom);
-    olc::start("Hello, World!", &mut viewer, args.width, args.height, 1, 1).unwrap();
+            let mut viewer = Viewer::new(args.file, args.pal, args.zoom);
+            olc::start(
+                "Family Pro. Asset viewer",
+                &mut viewer,
+                args.width,
+                args.height,
+                1,
+                1,
+            )
+            .unwrap();
+        }
+        file::FileType::PAL => {
+            println!("Error: File {} is a palette file. Exiting.", &args.file);
+            std::process::exit(1);
+        }
+    }
 }

@@ -18,7 +18,7 @@ pub struct Viewer {
 
 impl Viewer {
     pub fn new(sprite_file_name: String, pal_file_name: String, scale: i32) -> Self {
-        let filetype = file::get_file_type(sprite_file_name.clone());
+        let filetype = file::get_file_type(&sprite_file_name);
         println!("Sprite type: {:?}", filetype);
         let sprite: AnimatedSprite;
 

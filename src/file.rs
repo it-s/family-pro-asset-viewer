@@ -7,6 +7,7 @@ pub enum FileType {
     HMG,
     FBK,
     FX4,
+    PAL,
 }
 
 #[derive(Debug)]
@@ -45,7 +46,7 @@ impl FileReader {
     }
 }
 
-pub fn get_file_type(file_name: String) -> FileType {
+pub fn get_file_type(file_name: &String) -> FileType {
     let extension =
         &file_name.to_lowercase()[file_name.chars().count() - 3..file_name.chars().count()];
     if extension == "fbk" {
@@ -56,6 +57,9 @@ pub fn get_file_type(file_name: String) -> FileType {
     }
     if extension == "fx4" {
         return FileType::FX4;
+    }
+    if extension == "pal" {
+        return FileType::PAL;
     }
     FileType::Unknown
 }
